@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="@color/white"
+    android:orientation="horizontal"
+    android:padding="5sp"
+    android:layout_marginLeft="16sp"
+    android:layout_marginRight="16sp"
+    android:layout_marginBottom="5sp"
+    android:layout_width="match_parent"
+    android:layout_height="80sp">
+
+    <!--<CheckBox-->
+
+        <!--android:padding="0sp"-->
+        <!--android:layout_marginLeft="5sp"-->
+        <!--android:background="@color/white"-->
+        <!--android:id="@+id/reminds_check"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content" />-->
+    <TextView
+
+
+        android:singleLine="true"
+        android:text="hello"
+        android:layout_marginLeft="16sp"
+        android:textSize="20sp"
+        android:textColor="@color/Indigo_colorPrimary"
+        android:id="@+id/reminds_title"
+        android:layout_gravity="center_vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="30sp"
+        android:layout_weight="1"
+        />
+    <ImageView
+        android:id="@+id/reminds_sub"
+        android:layout_gravity="center_vertical"
+        android:layout_width="20sp"
+        android:layout_height="20sp"
+        />
+    <Button
+
+        android:id="@+id/reminds_collect"
+        android:layout_gravity="center_vertical"
+        android:layout_width="28sp"
+        android:background="@drawable/reminds_collection_1"
+        android:layout_height="28sp" />
+</LinearLayout>

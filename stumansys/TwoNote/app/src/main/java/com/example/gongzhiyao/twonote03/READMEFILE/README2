@@ -1,0 +1,188 @@
+05-13
+刚才完成了夜间模式
+在以后的的程序中，没写入一个界面都要写一下夜间模式的判断
+
+
+
+关闭抽屉这么来写
+ mDrawerLayout.closeDrawer(slider_view);
+
+
+
+
+/*****************************************************/
+遇到一个问题就是toolbar  在settitle时，显示空指针异常
+
+
+上午不能显示出toolbar的返回键是因为存在两个xml布局文件，现在能够实现返回按键了，代码如下
+
+ toolbar = (Toolbar) findViewById(R.id.toolbar_collection);
+        toolbar.setTitleTextColor(Color.parseColor("#ffffff"));
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setHomeButtonEnabled(true); //设置返回键可用
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+
+/****************************************/
+        但是想要设置返回按钮的颜色是白色。
+
+
+
+
+对searchview进行设置
+searchView= (SearchView) v2.findViewById(R.id.search);
+        searchView.setIconifiedByDefault(false);
+        searchView.setSubmitButtonEnabled(true);
+        searchView.setQueryHint("搜索");
+
+
+/******************************************************************************************/
+        要想在界面打开时，不自动跳出软键盘
+        可以在别的组件上
+        android:focusable="true"
+                            android:focusableInTouchMode="true"
+
+                            相当于把焦点先聚集在别处，而不是Edittext上
+
+
+                            或者是 在manifest的activity的属性中添加
+
+                            android:windowSoftInputMode="stateHidden"
+/**************************************************************************************/
+   要想布局不会被顶起，可以在manifest的activity的属性中添加
+                            android:windowSoftInputMode="adjustPan"
+
+
+
+现在正在写日程清单，但是因为没有网，不能获得图标，控制不好组件大小，暂时不写
+
+说一下要做的工作和遇到的问题：
+
+首先应该是在数据库中新建一张表，然后因为程序的需要，因为有两个pulltorefresh，这还是第一次尝试，
+需要重写的有adapter需要重写，然后就是listitem也需要重新设计，除此之外就是就是响应item的点击事件
+启动的是一个，通过观察，非常可能是一个prefrenceActivity,即使不是要做到界面的美化，尤其是对Edittext的美化
+
+除此之外，还有，就是打算在其中添加一个Editlog的联接，既可以新建，也可以跟已存在的连接，并且可以设置连接的Edittext是否显示在
+首页的列表中。还是把subtask设置为子任务即可。
+
+
+完成了日程清单的添加任务的界面
+
+
+接下来要写的是已经完成任务的界面，和关于任务的详细设置的界面
+
+/***********************************************************************/
+
+
+
+ String sq1="select * from reminds where _id=?";
+        Cursor c=dbread.rawQuery(sq1,new String[]{""+id});
+        /**
+         * 刚才查询的时候总是出现游标越界的情况，把游标移到First就解决了
+         */
+        c.moveToFirst();
+        title=c.getString(c.getColumnIndex("title"));
+        iscollection=c.getString(c.getColumnIndex("is_collection"));
+
+
+
+/***************************
+
+要去除EdiTText的下划线可以把属性edittable设置为false
+
+
+/******************************************************************************
+刚才要用list+map+Simpleadpter写一个listview作为设置的列表
+
+但是发现不能直接添加两种格式，因为一种是图标的id资源，另一个是字符串
+
+
+最后把id资源更改为字符串，就是在前面加上""，发现可以正常使用
+
+
+
+   Map<String, String> listitem = new HashMap<>();
+        Map<String, String> listitem1 = new HashMap<>();
+        Map<String, String> listitem2 = new HashMap<>();
+        Map<String, String> listitem3 = new HashMap<>();
+        listitem.put("icon", ""+R.drawable.setdate);
+        listitem.put("title", "设置日期和时间");
+        listItems.add(listitem);
+        listitem1.put("icon", "" + R.drawable.edit_reminds_add);
+        listitem1.put("title", "添加子任务");
+
+        listItems.add(listitem1);
+        listitem2.put("icon", "" + R.drawable.edit_reminds_notes);
+        listitem2.put("title", "添加备注");
+        listItems.add(listitem2);
+        listitem3.put("icon", "" + R.drawable.edit_reminds_relate);
+        listitem3.put("title", "关联Note文件");
+        listItems.add(listitem3);
+
+        adapter = new SimpleAdapter(this, listItems, R.layout.edit_reminds_list_cell, new String[]{"icon", "title"}, new int[]{R.id.iv_edit_reminds, R.id.tv_edit_reminds});
+
+        lv.setAdapter(adapter);
+
+
+
+
+        /******************************************************************/
+
+
+
+因为界面里面有listview 要控制listview不滚动，界面滚动
+
+必须给listview指定动态的高度，如下
+
+
+  /***
+     * 动态设置listview的高度
+     *
+     * @param listView
+     */
+    public void setListViewHeightBasedOnChildren(ListView listView) {
+        ListAdapter listAdapter = listView.getAdapter();
+        if (listAdapter == null) {
+            return;
+        }
+        int totalHeight = 0;
+        for (int i = 0; i < listAdapter.getCount(); i++) {
+            View listItem = listAdapter.getView(i, null, listView);
+            listItem.measure(0, 0);
+            totalHeight += listItem.getMeasuredHeight();
+        }
+        ViewGroup.LayoutParams params = listView.getLayoutParams();
+        params.height = totalHeight
+                + (listView.getDividerHeight() * (listAdapter.getCount() + 1));
+        listView.setLayoutParams(params);
+    }
+
+
+    /**********************************************************/
+
+现在项目遇到一个问题，就是listview 中的item 响应的顺序，不是点击的顺序，变化了
+
+从而导致checkbox和其他组件的响应也出现问题
+
+
+目前还不知道怎么解决
+
+应该是 conventview重用的问题
+
+
+又遇到一个问题，就是建的表少一列
+
+
+
+
+/**********************************************************************/
+
+现在两个问题合并为一个问题
+就是listview+checkbox的问题
+
+如果是使用shareprefrence来记录点按状态的话，应该也可以
+
+
+

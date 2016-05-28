@@ -1,0 +1,60 @@
+<resources>
+    <string name="app_name">TwoNote</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <color name="Indigo_colorPrimaryDark">#303f9f</color>
+    <color name="Indigo_colorPrimary">#3f51b5</color>
+    <color name="Indigo_nav_color">#4675FF</color>
+    <string name="open">打开</string>
+    <string name="close">关闭</string>
+    <color name="white">#ffffff</color>
+    <color name="black">#000</color>
+    <color name="red">#ff3357</color>
+    <string name="title_activity_edit__text">Edit_Text</string>
+    <string name="title_activity_test">Test</string>
+    <color name="backcolor">#525252</color>
+    <color name="remind_button1">#8eff88</color>
+    <color name="gray">#b0b0b0</color>
+    <color name="gray_real">#707070</color>
+
+
+    <string name="edit_reminds_setting1">设置日期和时间</string>
+    <string name="edit_reminds_setting2">添加子任务</string>
+    <string name="edit_reminds_setting3">添加备注</string>
+    <string name="edit_reminds_setting4">关联Note文件</string>
+
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_bottom__menu">Bottom_Menu</string>
+    <string name="title_activity_search__result">Search_Result</string>
+    <string name="title_activity_record__sound_list">Record_Sound_list</string>
+    <string name="title_activity_collection_list">collection_list</string>
+    <string name="title_activity_reminds_date">Reminds_date</string>
+    <string name="title_activity_edit__remind">Edit_Remind</string>
+    <string name="title_activity_pick_time_and_date">设置时间和日期</string>
+    <string name="title_activity_launch">TwoNote</string>
+    <string name="title_activity_settings">Settings</string>
+    <string name="title_activity_dialog_pick_date_time">dialog_pick_date_time</string>
+
+    <string name="title_section1">Section 1</string>
+    <string name="title_section2">Section 2</string>
+    <string name="title_section3">Section 3</string>
+    <string name="title_activity_pick_date_time">Pick_date_time</string>
+    <string name="title_activity_task_finished">Task_finished</string>
+    <string name="title_activity_set_hearder_icon">Set_hearderIcon</string>
+    <string name="title_activity_setting_safe">Setting_safe</string>
+    <string name="title_activity_setting_help">Setting_help</string>
+    <string name="title_activity_setting_feed_back">Setting_feedBack</string>
+    <string name="title_activity_setting_about">Setting_about</string>
+    <string name="title_activity_popupwindows_set_icon">popupwindows_set_icon</string>
+    <string name="title_activity_dialog_set_head_icon">Dialog_set_head_icon</string>
+    <string name="title_activity_set_passwd_sound">Set_passwd_sound</string>
+    <string name="title_activity_input_passwd_for_sound">Input_passwd_for_sound</string>
+    <string name="title_activity_change_passwd_sound">Change_passwd_sound</string>
+    <string name="title_activity_shake_for_passwd_notes">Shake_for_passwd_notes</string>
+    <string name="title_activity_forget_passwd_sound">Forget_passwd_sound</string>
+    <string name="title_activity_alarm">TwoNote日程提醒</string>
+    <string name="title_activity_cancel_passwd_sound">Cancel_passwd_sound</string>
+</resources>

@@ -1,0 +1,265 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.gongzhiyao.twonote03" >
+
+    <uses-permission android:name="android.permission.FLASHLIGHT" />
+    <uses-permission android:name="android.PERMISSION.VIBRATE" />
+    <uses-permission android:name="ANDROID.PERMISSION.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.MANAGE_DOCUMENTS" />
+    <uses-permission android:name="ANDROID.PERMISSION.CAMERA" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.MOUNT_FORMAT_FILESYSTEMS" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
+    <uses-permission android:name="ANDROID.PERMISSION.VIBRATE" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.INTERNET"/>
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/icon"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme" >
+        <activity
+            android:name=".MainActivity"
+            android:label="@string/app_name"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan|stateHidden" >
+            <intent-filter>
+
+                <!-- <action android:name="android.intent.action.MAIN" /> -->
+                <category android:name="android.intent.category.DEFAULT" />
+                <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".Recent_log.ListView_show_recent_log"
+            android:label="ListView_show_recent_log"
+            android:screenOrientation="portrait" >
+            <intent-filter>
+                <category android:name="android.intent.category.DEFAULT" />
+
+                <action android:name="com.example.gongzhiyao.twonote03.ListView_Main" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".Edit_log.Edit_Text"
+            android:label="@string/title_activity_edit__text"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden" >
+        </activity>
+        <activity
+            android:name=".Test"
+            android:label="@string/title_activity_test"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name=".SelectPicPopupWindow"
+            android:screenOrientation="portrait"
+            android:theme="@style/MyDialogStyleBottom" >
+            <intent-filter>
+                <category android:name="ANDROID.INTENT.CATEGORY.DEFAULT" />
+
+                <action android:name="com.example.gongzhiyao.text_bottom_menu.action.selectPicPopupWindows" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".Search_log.Search_Result"
+            android:label="@string/title_activity_search__result"
+            android:parentActivityName=".MainActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" >
+        </activity>
+        <activity
+            android:name=".recordsoundActivity.Record_Sound_list"
+            android:label="@string/title_activity_record__sound_list"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" >
+            <intent-filter>
+                <category android:name="ANDROID.INTENT.CATEGORY.DEFAULT" />
+
+                <action android:name="com.example.gongzhiyao.twonote03.action.Record_Sound_list" />
+            </intent-filter>
+        </activity>
+
+        <service
+            android:name=".Service.infoService"
+            android:enabled="true"
+            android:exported="true" >
+            <intent-filter>
+                <action android:name="com.example.gongzhiyao.twonote03.service_info" />
+            </intent-filter>
+        </service>
+
+        <receiver
+            android:name=".Receiver.infoReceiver"
+            android:enabled="true"
+            android:exported="true" >
+        </receiver>
+
+        <service
+            android:name=".Service.Service_receiver"
+            android:enabled="true"
+            android:exported="true" >
+            <intent-filter>
+                <action android:name="com.example.gongzhiyao.twonote03.service_receiver" />
+            </intent-filter>
+        </service>
+
+        <receiver
+            android:name=".Receiver.BootReceiver"
+            android:enabled="true"
+            android:exported="true" >
+            <intent-filter>
+                <action android:name="ANDROID.INTENT.ACTION.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
+
+        <service
+            android:name=".Service.Service_night"
+            android:enabled="true"
+            android:exported="true" >
+        </service>
+
+        <activity
+            android:name=".reminds.Collection_list"
+            android:label="@string/title_activity_collection_list"
+            android:parentActivityName=".MainActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" >
+        </activity>
+        <activity
+            android:name=".reminds.Reminds_date"
+            android:label="@string/title_activity_reminds_date"
+            android:parentActivityName=".MainActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" >
+        </activity>
+        <activity
+            android:name=".Edit_Remind"
+            android:label="@string/title_activity_edit__remind"
+            android:parentActivityName=".reminds.Reminds_date"
+            android:screenOrientation="portrait" >
+            <intent-filter>
+                <action android:name="com.example.gongzhiyao.twonote03.action.edit_remind" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".pickTime.PickTimeAndDate"
+            android:label="@string/title_activity_pick_time_and_date"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Dialog" >
+        </activity>
+        <activity
+            android:name=".launch.Launch"
+            android:label="@string/title_activity_launch"
+            android:screenOrientation="portrait" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".setting.Settings"
+            android:label="@string/title_activity_settings"
+            android:parentActivityName=".MainActivity"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name=".Task_finished"
+            android:label="@string/title_activity_task_finished"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name=".setting.Set_hearderIcon"
+            android:label="@string/title_activity_set_hearder_icon"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name=".setting.Setting_safe"
+            android:label="@string/title_activity_setting_safe"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name=".setting.Setting_help"
+            android:label="@string/title_activity_setting_help"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name=".setting.Setting_feedBack"
+            android:label="@string/title_activity_setting_feed_back"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name=".setting.Setting_about"
+            android:label="@string/title_activity_setting_about"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name=".setting.Dialog_set_head_icon"
+            android:label="@string/title_activity_dialog_set_head_icon"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.NoActionBar" >
+        </activity>
+        <activity
+            android:name=".passwd.Set_passwd_sound"
+            android:label="@string/title_activity_set_passwd_sound"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name=".passwd.Input_passwd_for_sound"
+            android:label="@string/title_activity_input_passwd_for_sound"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name=".passwd.Change_passwd_sound"
+            android:label="@string/title_activity_change_passwd_sound"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name=".passwd.Shake_for_passwd_notes"
+            android:label="@string/title_activity_shake_for_passwd_notes"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name=".passwd.Forget_passwd_sound"
+            android:label="@string/title_activity_forget_passwd_sound"
+            android:screenOrientation="portrait" >
+        </activity>
+
+        <receiver
+            android:name=".Receiver.AlarmReceiver"
+            android:enabled="true"
+            android:exported="true" >
+            <intent-filter>
+                <action android:name="alarm" />
+            </intent-filter>
+        </receiver>
+
+        <service
+            android:name=".Service.AlarmService"
+            android:enabled="true"
+            android:exported="true" >
+        </service>
+
+        <activity
+            android:excludeFromRecents="true"
+            android:noHistory="true"
+            android:name=".alarm.Alarm"
+            android:label="@string/title_activity_alarm"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name=".passwd.Cancel_passwd_sound"
+            android:label="@string/title_activity_cancel_passwd_sound" >
+        </activity>
+    </application>
+
+</manifest>

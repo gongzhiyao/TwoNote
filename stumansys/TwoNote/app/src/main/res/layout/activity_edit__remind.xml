@@ -1,0 +1,323 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+
+    tools:context="com.example.gongzhiyao.twonote03.Edit_Remind">
+
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toobar_reminds_edit"
+        android:layout_width="match_parent"
+        android:layout_height="50sp"
+        android:background="?attr/colorPrimary"
+        android:minHeight="?attr/actionBarSize"
+
+        android:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+        app:theme="@style/ThemeOverlay.AppCompat.ActionBar">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:focusable="true"
+            android:focusableInTouchMode="true">
+
+            <EditText
+                android:id="@+id/tv_reminds_edit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="16sp"
+                android:layout_weight="1"
+                android:background="@null"
+                android:textColor="@color/white" />
+
+            <Button
+                android:id="@+id/btn_reminds_edit"
+                android:layout_width="32sp"
+                android:layout_height="32sp"
+                android:layout_gravity="center_vertical" />
+        </LinearLayout>
+    </android.support.v7.widget.Toolbar>
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16sp"
+                android:layout_marginTop="10sp"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="40sp"
+                    android:layout_height="40sp"
+                    android:layout_marginLeft="5sp"
+                    android:src="@drawable/setdate" />
+
+                <Button
+                    android:id="@+id/set_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="16sp"
+                    android:layout_weight="1"
+                    android:background="@null"
+                    android:gravity="left|center_vertical"
+                    android:text="设置提醒日期"
+                    android:textColor="@color/gray_real" />
+
+                <TextView
+                    android:id="@+id/edit_reminds_show_date"
+                    android:layout_width="120sp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="16sp"
+                    android:text="      年   月   日"
+                    android:textSize="16sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="right"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="280sp"
+                    android:layout_height="1sp"
+                    android:layout_gravity="right"
+                    android:background="@color/gray" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16sp"
+                android:layout_marginTop="10sp"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="40sp"
+                    android:layout_height="40sp"
+                    android:layout_marginLeft="5sp"
+                    android:src="@drawable/settime" />
+
+                <Button
+                    android:id="@+id/set_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="16sp"
+                    android:layout_weight="1"
+                    android:background="@null"
+                    android:gravity="left|center_vertical"
+                    android:text="设置提醒时间"
+                    android:textColor="@color/gray_real" />
+
+                <TextView
+                    android:id="@+id/edit_reminds_show_time"
+                    android:layout_width="80sp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="16sp"
+                    android:text="   时    分 "
+                    android:textSize="16sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16sp"
+                android:layout_marginTop="10sp"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="40sp"
+                    android:layout_height="40sp"
+                    android:layout_marginLeft="5sp"
+                    android:src="@drawable/cancel_time" />
+
+                <Button
+                    android:id="@+id/cancel_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="16sp"
+                    android:layout_weight="1"
+                    android:background="@null"
+                    android:gravity="left|center_vertical"
+                    android:text="取消闹钟"
+                    android:textColor="@color/gray_real" />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="right"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="280sp"
+                    android:layout_height="1sp"
+                    android:layout_gravity="right"
+                    android:background="@color/gray" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16sp"
+                android:layout_marginTop="10sp"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="40sp"
+                    android:layout_height="40sp"
+                    android:layout_marginLeft="5sp"
+                    android:src="@drawable/edit_reminds_add" />
+
+                <Button
+                    android:id="@+id/set_sub_task"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="16sp"
+                    android:layout_weight="1"
+                    android:background="@null"
+                    android:gravity="left|center_vertical"
+                    android:text="添加子任务"
+                    android:textColor="@color/gray_real" />
+
+
+            </LinearLayout>
+
+            <ListView
+                android:id="@+id/lv_sub_task"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="66sp">
+
+            </ListView>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="right"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="280sp"
+                    android:layout_height="1sp"
+                    android:layout_gravity="right"
+                    android:background="@color/gray" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16sp"
+                android:layout_marginTop="10sp"
+                android:orientation="horizontal">
+
+                <ImageView
+
+                    android:layout_width="40sp"
+                    android:layout_height="40sp"
+                    android:layout_marginLeft="5sp"
+                    android:src="@drawable/edit_reminds_notes" />
+
+                <Button
+                    android:id="@+id/edit_reminds_summary"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="16sp"
+                    android:layout_weight="1"
+                    android:background="@null"
+                    android:gravity="left|center_vertical"
+                    android:text="描述"
+                    android:textColor="@color/gray_real" />
+
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/show_summary"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="60sp"
+                android:inputType="textMultiLine"
+                android:textColor="@color/Indigo_colorPrimary"
+                android:textSize="14sp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="right"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="280sp"
+                    android:layout_height="1sp"
+                    android:layout_gravity="right"
+                    android:background="@color/gray" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16sp"
+                android:layout_marginTop="10sp"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="40sp"
+                    android:layout_height="40sp"
+                    android:layout_marginLeft="5sp"
+                    android:src="@drawable/edit_reminds_relate" />
+
+                <Button
+                    android:id="@+id/edit_reminds_relate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="16sp"
+                    android:layout_weight="1"
+                    android:background="@null"
+                    android:gravity="left|center_vertical"
+                    android:text="关联Note文件"
+                    android:textColor="@color/gray_real" />
+
+
+            </LinearLayout>
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16sp"
+                android:background="@color/gray"
+                android:padding="10sp"
+                android:text="已关联的文件"
+                android:textColor="@color/gray_real" />
+
+            <ListView
+                android:id="@+id/lv_relates"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                >
+
+            </ListView>
+
+
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

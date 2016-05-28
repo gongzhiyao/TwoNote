@@ -1,0 +1,459 @@
+package com.example.gongzhiyao.twonote03;
+
+import android.app.Activity;
+import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Color;
+import android.os.AsyncTask;
+import android.os.Environment;
+import android.support.v4.view.MenuItemCompat;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.ActionBarDrawerToggle;
+import android.os.Bundle;
+import android.support.v7.widget.SearchView;
+import android.support.v7.widget.Toolbar;
+import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.ListView;
+import android.widget.RelativeLayout;
+import android.widget.SimpleCursorAdapter;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.example.gongzhiyao.twonote03.Edit_log.Edit_Text;
+import com.example.gongzhiyao.twonote03.Search_log.Search_Result;
+import com.example.gongzhiyao.twonote03.database.MyDB;
+import com.handmark.pulltorefresh.library.PullToRefreshBase;
+import com.handmark.pulltorefresh.library.PullToRefreshListView;
+
+import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+public class MainActivity extends ActionBarActivity implements View.OnClickListener {
+    //声明相关变量
+    private Toolbar toolbar;
+    private DrawerLayout mDrawerLayout;
+    private ActionBarDrawerToggle mDrawerToggle;
+
+    private Button mbSetting;
+
+    private Button mbAdd;
+    private MyDB db;
+    private SQLiteDatabase dbwrite, dbRead;
+    private SimpleCursorAdapter adapter;
+    //    private ListView lv;
+    private PullToRefreshListView lv;
+    public static final int Request_edit_code = 1;
+    public static final int Request_add_code = 2;
+    private static final String TAG = "Main";
+    private RelativeLayout slider_view;
+    private LinearLayout root_View;
+    private Button mbRecent_log, mbRecord_Sound;
+
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        findViews(); //获取控件
+        bindListener();
+
+        slider_view = (RelativeLayout) findViewById(R.id.slider_content);
+
+        db = new MyDB(this);
+        dbRead = db.getReadableDatabase();
+        dbwrite = db.getWritableDatabase();
+
+
+/*************************************************************************************************************************************************************************/
+/********************长按上下文菜单也在这******************************************************************************************************************************************************************/
+        /*******这一部分是下拉列表的刷新，里面有部分网络通信，没有写******/
+
+        //此处缺少一个布局文件，用于显示Listview的Item
+//        adapter = new SimpleCursorAdapter(this, R.layout.list_cell_item, null, new String[]{"name", "content", "date"}, new int[]{R.id.tv_title, R.id.tv_content, R.id.tv_date});
+        adapter = new SimpleCursorAdapter(this, R.layout.list_cell_item, null, new String[]{"name", "date"}, new int[]{R.id.tv_title, R.id.tv_date});
+
+        lv.setAdapter(adapter);
+
+
+        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {//点击一个Item时，查询数据库，发送消息
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Cursor c = adapter.getCursor();
+                c.moveToPosition(position - 1);
+                Intent i = new Intent(MainActivity.this, Edit_Text.class);
+                i.putExtra(Edit_Text.Title, c.getString(c.getColumnIndex("name")));
+                i.putExtra(Edit_Text.Content, c.getString(c.getColumnIndex("content")));
+                i.putExtra(Edit_Text.Date, c.getString(c.getColumnIndex("date")));
+                i.putExtra(Edit_Text.Id, c.getInt(c.getColumnIndex("_id")));
+                startActivityForResult(i, Request_edit_code);
+            }
+        });
+
+
+        ListView actualListView = lv.getRefreshableView();
+
+        actualListView.setOnItemLongClickListener(longClick);
+
+        lv.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2<ListView>() {
+                                    @Override
+                                    public void onPullDownToRefresh(PullToRefreshBase<ListView> refreshView) {
+                                        lv.getLoadingLayoutProxy().setRefreshingLabel("正在刷新");
+                                        lv.getLoadingLayoutProxy().setPullLabel("下拉刷新数据");
+                                        lv.getLoadingLayoutProxy().setReleaseLabel("释放开始刷新");
+                                        //模拟加载数据线程休息3秒
+                                        new AsyncTask<Void, Void, Void>() {
+                                            @Override
+                                            protected Void doInBackground(Void... params) {
+                                                try {
+                                                    Thread.sleep(3000);//模拟网络通信 ，在这里休眠了三秒
+
+                                                } catch (InterruptedException e) {
+                                                    e.printStackTrace();
+                                                }
+
+                                                //这里是后台做的事
+                                                //在背后连接服务器刷新数据
+
+                                                return null;
+                                            }
+
+                                            @Override
+                                            protected void onPostExecute(Void result) {
+                                                super.onPostExecute(result);
+                                                //完成对下拉刷新ListView的更新操作
+                                                adapter.notifyDataSetChanged();
+                                                //将下拉视图收起
+                                                lv.onRefreshComplete();
+                                            }
+                                        }.execute();
+                                    }
+
+
+                                    @Override
+                                    public void onPullUpToRefresh(PullToRefreshBase<ListView> refreshView) {
+                                        lv.getLoadingLayoutProxy().setRefreshingLabel("正在加载");
+                                        lv.getLoadingLayoutProxy().setPullLabel("上拉加载更多");
+                                        lv.getLoadingLayoutProxy().setReleaseLabel("释放开始加载");
+                                        //模拟加载数据线程休息3秒
+                                        new AsyncTask<Void, Void, Void>() {
+                                            @Override
+                                            protected Void doInBackground(Void... params) {
+                                                try {
+                                                    Thread.sleep(3000);//数据写在这里
+//                                                    data.add("更多数据1");
+//                                                    data.add("更多数据2");
+//                                                    data.add("更多数据3");
+                                                } catch (InterruptedException e) {
+                                                    e.printStackTrace();
+                                                }
+                                                return null;
+                                            }
+
+                                            @Override
+                                            protected void onPostExecute(Void result) {
+                                                super.onPostExecute(result);
+                                                //完成对下拉刷新ListView的更新操作
+                                                adapter.notifyDataSetChanged();
+                                                //将下拉视图收起
+                                                lv.onRefreshComplete();
+                                            }
+                                        }.execute();
+
+                                    }
+                                }
+
+        );
+/****************************************************************************************************************************/
+/*************************************************************************************************************************************/
+
+
+        refreshList();
+
+
+//在这里写主布局
+
+/************************************************************************************************************
+ /******************************************************************************************************/
+        /**************这里是Toolbar的设置***************/
+
+        toolbar.setTitle("");//设置Toolbar标题
+        toolbar.setTitleTextColor(Color.parseColor("#ffffff")); //设置标题颜色
+
+        setSupportActionBar(toolbar);
+
+        //        toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+//            @Override
+//            public boolean onMenuItemClick(MenuItem item) {
+//                switch (item.getItemId()) {
+//                    case R.id.ab_search:
+//
+//
+//                        Toast.makeText(getApplicationContext(),"点击了搜索按钮",Toast.LENGTH_SHORT).show();
+//                        break;
+//
+//                }
+//                return true;
+//            }
+//        });
+        getSupportActionBar().setHomeButtonEnabled(true); //设置返回键可用
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        //创建返回键，并实现打开关/闭监听
+        mDrawerToggle = new
+
+                ActionBarDrawerToggle(this, mDrawerLayout, toolbar, R.string.open, R.string.close) {
+                    @Override
+                    public void onDrawerOpened(View drawerView) {//抽屉打开后，做的操作
+                        super.onDrawerOpened(drawerView);
+                        Log.i(TAG, "抽屉已打开");
+                        slider_view.setClickable(true);
+                    }
+
+                    @Override
+                    public void onDrawerClosed(View drawerView) {//抽屉关闭后做的操作
+                        super.onDrawerClosed(drawerView);
+//                mAnimationDrawable.start();
+                    }
+                }
+
+        ;
+        mDrawerToggle.syncState();
+        mDrawerLayout.setDrawerListener(mDrawerToggle);
+
+
+    }//这是oncreate的最后
+
+    /*************************************************************************************************/
+
+    private void bindListener() {
+        mbAdd.setOnClickListener(this);
+        mbSetting.setOnClickListener(this);
+        mbRecent_log.setOnClickListener(this);
+        mbAdd.setOnClickListener(this);
+        mbRecord_Sound.setOnClickListener(this);
+    }
+
+    /***********************************************************************************************************/
+    private void findViews() {
+
+        mbRecent_log = (Button) findViewById(R.id.btn_recent_log);
+
+        root_View = (LinearLayout) findViewById(R.id.root_view);
+
+        lv = (PullToRefreshListView) findViewById(R.id.lv);
+        mbAdd = (Button) findViewById(R.id.btn_add);
+        mbAdd = (Button) findViewById(R.id.btn_add);
+        mbSetting = (Button) findViewById(R.id.btn_setting);
+        toolbar = (Toolbar) findViewById(R.id.tl_custom);
+        mDrawerLayout = (DrawerLayout) findViewById(R.id.dl_left);
+        mbRecent_log = (Button) findViewById(R.id.btn_recent_log);
+
+
+        mbRecord_Sound = (Button) findViewById(R.id.btn_record_sound_log);
+    }
+
+
+    private TextView tv;
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        switch (requestCode) {
+
+
+            case Request_edit_code:
+            case Request_add_code: //无论是新建还是修改都要刷新一下列表
+
+                if (resultCode == Activity.RESULT_OK) {
+                    //如果是add操作，就刷.................................新列表
+                    Log.i(TAG, "刷新列表成功");
+
+
+                }
+
+                break;
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        refreshList();
+        Log.i(TAG, "主界面恢复");
+//        mDrawerLayout.closeDrawer(slider_view);//这就是代码关闭抽屉
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        Log.i(TAG, "主界面暂停");
+//        mDrawerLayout.closeDrawer(slider_view);//这就是代码关闭抽屉
+
+    }
+
+    @Override
+    protected void onDestroy() {
+        Log.i(TAG, "主界面销毁");
+        super.onDestroy();
+        dbRead.close();
+        dbwrite.close();
+    }
+
+
+    private void refreshList() {
+        Cursor c = dbRead.query("notes", null, null, null, null, null, null);
+        adapter.changeCursor(c);
+        Log.i(TAG, "刷新了一次列表");
+    }
+
+    /**********************
+     * 监听器,左边界面的监听器也在里面
+     *********************************************************************************/
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.btn_setting:
+
+                break;
+            case R.id.btn_recent_log:
+
+                break;
+            case R.id.btn_add:
+                add_new_one();
+                break;
+            case R.id.btn_record_sound_log:
+                Log.i(TAG, "点击了录音笔记");
+                mDrawerLayout.closeDrawer(slider_view);//这就是代码关闭抽屉
+                /**
+                 * 在这里写一个线程，让抽屉延时关闭，把startActivity写到线程中
+                 */
+                new Thread() {
+                    @Override
+                    public void run() {
+                        super.run();
+                        try {
+                            sleep(300);
+                            startActivity(new Intent(MainActivity.this, Record_Sound_list.class));
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }.start();
+
+
+                break;
+
+
+        }
+    }
+
+    private void add_new_one() {
+        SimpleDateFormat f = new SimpleDateFormat("yyyy年MM月dd日    hh:mm:ss");
+        String time = f.format(new Date());
+        Intent i = new Intent(MainActivity.this, Edit_Text.class);
+        i.putExtra(Edit_Text.Date, time);
+        startActivityForResult(i, Request_add_code);
+        Log.i(TAG, "获取到的时间是" + time);
+    }
+
+    /*********************************
+     * 后面是自定义menu和menuitem监听器（SearchView）的设置
+     ***************************************************************************/
+    public static void setSearchViewOnClickListener(View v, View.OnClickListener listener) {
+        if (v instanceof ViewGroup) {
+            ViewGroup group = (ViewGroup) v;
+            int count = group.getChildCount();
+            for (int i = 0; i < count; i++) {
+                View child = group.getChildAt(i);
+                if (child instanceof LinearLayout || child instanceof RelativeLayout) {
+                    setSearchViewOnClickListener(child, listener);
+                }
+
+                if (child instanceof TextView) {
+                    TextView text = (TextView) child;
+                    text.setFocusable(false);
+                }
+                child.setOnClickListener(listener);
+            }
+        }
+    }
+
+    final int Menu_Add_new_one = Menu.FIRST;
+    final int Menu_My_collection = Menu.FIRST + 1;
+    final int Menu_Sync = Menu.FIRST + 2;
+    final int Menu_setting = Menu.FIRST + 3;
+    MenuItem searchViewButton;
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        menu.add(0, Menu_Add_new_one, 0, "新建");
+        menu.add(0, Menu_My_collection, 0, "我的收藏");
+        menu.add(0, Menu_Sync, 0, "同步");
+        menu.add(0, Menu_setting, 0, "设置");
+
+        searchViewButton = (MenuItem) menu.findItem(R.id.ab_search);
+
+        SearchView searchView = (SearchView) MenuItemCompat.getActionView(searchViewButton);
+        setSearchViewOnClickListener(searchView, new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, Search_Result.class));
+            }
+        });
+
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+
+            case Menu_Add_new_one:
+                add_new_one();
+//                Toast.makeText(getApplicationContext(),"点击了新建按钮",Toast.LENGTH_SHORT).show();
+                break;
+            case Menu_My_collection:
+                Toast.makeText(getApplicationContext(), "点击了我的收藏", Toast.LENGTH_SHORT).show();
+                break;
+            case Menu_Sync:
+                Toast.makeText(getApplicationContext(), "点击了同步", Toast.LENGTH_SHORT).show();
+                break;
+            case Menu_setting:
+                Toast.makeText(getApplicationContext(), "点击了设置", Toast.LENGTH_SHORT).show();
+                break;
+
+        }
+
+
+        return super.onOptionsItemSelected(item);
+    }
+/******************************************************************************************************************/
+    /*********************************************************************************************/
+    private AdapterView.OnItemLongClickListener longClick = new AdapterView.OnItemLongClickListener() {
+        @Override
+        public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+
+            startActivity(new Intent(MainActivity.this, SelectPicPopupWindow.class));
+            Log.i(TAG, "长按操作已执行");
+
+            return true;
+        }
+    };
+
+
+}

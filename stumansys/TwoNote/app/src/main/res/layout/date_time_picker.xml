@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_margin="5sp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="选择日期"
+        android:textSize="20sp" />
+
+    <LinearLayout
+        android:padding="5sp"
+        android:layout_gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+
+        <com.example.gongzhiyao.twonote03.pickTime.PickerView
+            android:id="@+id/pv_year"
+            android:layout_width="80dp"
+            android:layout_height="140dp" />
+
+        <TextView
+            android:layout_gravity="center_vertical"
+            android:id="@+id/tv_year"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+
+            android:text="年"
+            android:textColor="#707070"
+            android:textSize="26sp"
+            android:textStyle="bold" />
+
+        <com.example.gongzhiyao.twonote03.pickTime.PickerView
+            android:id="@+id/pv_month"
+            android:layout_width="80dp"
+            android:layout_height="140sp"
+            />
+
+        <TextView
+            android:id="@+id/tv_month"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_gravity="center_vertical"
+            android:text="月"
+            android:textColor="#707070"
+            android:textSize="26sp"
+            android:textStyle="bold" />
+
+        <com.example.gongzhiyao.twonote03.pickTime.PickerView
+            android:id="@+id/pv_day"
+            android:layout_width="80dp"
+            android:layout_height="140sp"
+          />
+
+        <TextView
+            android:id="@+id/tv_day"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_gravity="center_vertical"
+            android:text="日"
+            android:textColor="#707070"
+            android:textSize="26sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+    <TextView
+        android:layout_margin="10sp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="选择时间"
+        android:textSize="20sp" />
+    <LinearLayout
+        android:padding="5sp"
+        android:layout_gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+
+        <com.example.gongzhiyao.twonote03.pickTime.PickerView
+            android:id="@+id/pv_pm_am"
+            android:layout_width="80dp"
+            android:layout_height="140dp" />
+
+        <TextView
+            android:id="@+id/tv_pm_am"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+
+            android:text="    "
+            android:textColor="#ffaa33"
+            android:textSize="26sp"
+            android:textStyle="bold" />
+
+        <com.example.gongzhiyao.twonote03.pickTime.PickerView
+            android:id="@+id/pv_hour"
+            android:layout_width="80dp"
+            android:layout_height="140sp"
+            />
+
+        <!--<TextView-->
+            <!--android:id="@+id/tv_hour"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_centerVertical="true"-->
+
+            <!--android:text=":"-->
+            <!--android:textColor="#ffaa33"-->
+            <!--android:textSize="26sp"-->
+            <!--android:textStyle="bold" />-->
+        <ImageView
+            android:layout_width="25sp"
+            android:layout_height="25sp"
+            android:layout_gravity="center_vertical"
+            android:src="@drawable/maohao"
+            />
+
+        <com.example.gongzhiyao.twonote03.pickTime.PickerView
+            android:id="@+id/pv_min"
+            android:layout_width="80dp"
+            android:layout_height="140sp"
+            />
+
+
+    </LinearLayout>
+
+
+
+
+</LinearLayout>

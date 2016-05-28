@@ -1,0 +1,373 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+
+    tools:context="com.example.gongzhiyao.twonote03.Edit_Remind">
+
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toobar_reminds_edit"
+        android:layout_width="match_parent"
+        android:layout_height="50sp"
+        android:background="?attr/colorPrimary"
+        android:minHeight="?attr/actionBarSize"
+
+        android:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+        app:theme="@style/ThemeOverlay.AppCompat.ActionBar">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:focusable="true"
+            android:focusableInTouchMode="true">
+
+            <EditText
+                android:id="@+id/tv_reminds_edit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="16sp"
+                android:layout_weight="1"
+                android:background="@null"
+                android:textColor="@color/white" />
+
+            <Button
+                android:id="@+id/btn_reminds_edit"
+                android:layout_width="32sp"
+                android:layout_height="32sp"
+                android:layout_gravity="center_vertical" />
+        </LinearLayout>
+    </android.support.v7.widget.Toolbar>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="12"
+        android:orientation="vertical">
+
+
+        <ListView
+            android:layout_marginTop="6sp"
+            android:id="@+id/lv_reminds_setting"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        </ListView>
+
+        <!--<LinearLayout-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_weight="1"-->
+            <!--android:orientation="horizontal">-->
+
+            <!--<ImageView-->
+                <!--android:layout_width="45sp"-->
+                <!--android:layout_height="45sp"-->
+                <!--android:layout_gravity="center_vertical" />-->
+
+            <!--<Button-->
+
+                <!--android:background="@null"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="match_parent"-->
+                <!--android:layout_weight="1"-->
+                <!--android:gravity="left|center"-->
+                <!--android:layout_marginLeft="16sp"-->
+                <!--android:textSize="16sp"-->
+                <!--android:textColor="@color/gray"-->
+                <!--android:text="设置日期与时间"/>-->
+        <!--</LinearLayout>-->
+        <!--<ImageView-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="1sp"-->
+            <!--android:background="@color/gray"/>-->
+        <!--<LinearLayout-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_weight="1"-->
+            <!--android:orientation="horizontal">-->
+
+            <!--<ImageView-->
+                <!--android:layout_width="45sp"-->
+                <!--android:layout_height="45sp"-->
+                <!--android:layout_gravity="center_vertical" />-->
+
+            <!--<Button-->
+                <!--android:background="@null"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="match_parent"-->
+                <!--android:layout_weight="1"-->
+                <!--android:gravity="left|center"-->
+                <!--android:layout_marginLeft="16sp"-->
+                <!--android:textSize="16sp"-->
+                <!--android:textColor="@color/gray"-->
+                <!--android:text="添加子任务"/>-->
+
+
+        <!--</LinearLayout>-->
+<!--<ImageView-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="1sp"-->
+    <!--android:background="@color/gray"/>-->
+        <!--<LinearLayout-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_weight="2"-->
+            <!--android:orientation="horizontal">-->
+
+            <!--<ImageView-->
+                <!--android:layout_width="45sp"-->
+                <!--android:layout_height="45sp"-->
+                <!--android:layout_gravity="center_vertical" />-->
+
+            <!--<Button-->
+                <!--android:background="@null"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="match_parent"-->
+                <!--android:layout_weight="1"-->
+                <!--android:gravity="left|center"-->
+                <!--android:layout_marginLeft="16sp"-->
+                <!--android:textSize="16sp"-->
+                <!--android:textColor="@color/gray"-->
+                <!--android:text="设置日期与时间"/>-->
+        <!--</LinearLayout>-->
+        <!--<ImageView-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="1sp"-->
+            <!--android:background="@color/gray"/>-->
+        <!--<LinearLayout-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_weight="1"-->
+            <!--android:orientation="horizontal">-->
+
+            <!--<ImageView-->
+                <!--android:layout_width="45sp"-->
+                <!--android:layout_height="45sp"-->
+                <!--android:layout_gravity="center_vertical" />-->
+
+            <!--<Button-->
+                <!--android:background="@null"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="match_parent"-->
+                <!--android:layout_weight="1"-->
+                <!--android:gravity="left|center"-->
+                <!--android:layout_marginLeft="16sp"-->
+                <!--android:textSize="16sp"-->
+                <!--android:textColor="@color/gray"-->
+                <!--android:text="关联Note文件"/>-->
+        <!--</LinearLayout>-->
+
+        <!--<ImageView-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="1sp"-->
+            <!--android:background="@color/gray"/>-->
+
+
+    </LinearLayout>
+
+
+
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_marginBottom="2sp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="6">
+
+
+            <TextView
+                android:id="@+id/tv_reminds_edit_clock"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="还未设置闹铃时间"/>
+            <ListView
+                android:layout_width="match_parent"
+                android:layout_height="180sp"
+                android:id="@+id/lv_reminds_edit_task">
+
+            </ListView>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="还没有添加备忘录"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="没有关联的文件"/>
+
+
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom">
+
+            <Button
+
+
+                android:layout_width="wrap_content"
+                android:layout_height="50sp"
+                android:layout_weight="1"
+                />
+            <Button
+
+                android:layout_width="30sp"
+                android:layout_height="50sp" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+</LinearLayout>
+
+
+
+
+
+
+
+
+下面是java文件的备份
+
+
+只有关于设置listview的部分
+
+
+ Map<String, String> listitem = new HashMap<>();
+        Map<String, String> listitem1 = new HashMap<>();
+        Map<String, String> listitem2 = new HashMap<>();
+        Map<String, String> listitem3 = new HashMap<>();
+        listitem.put("icon", ""+R.drawable.setdate);
+        listitem.put("title", "设置日期和时间");
+        listItems.add(listitem);
+        listitem1.put("icon", "" + R.drawable.edit_reminds_add);
+        listitem1.put("title", "添加子任务");
+
+        listItems.add(listitem1);
+        listitem2.put("icon", "" + R.drawable.edit_reminds_notes);
+        listitem2.put("title", "添加备注");
+        listItems.add(listitem2);
+        listitem3.put("icon", "" + R.drawable.edit_reminds_relate);
+        listitem3.put("title", "关联Note文件");
+        listItems.add(listitem3);
+
+        adapter = new SimpleAdapter(this, listItems, R.layout.edit_reminds_list_cell, new String[]{"icon", "title"}, new int[]{R.id.iv_edit_reminds, R.id.tv_edit_reminds});
+
+        lv.setAdapter(adapter);
+
+        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Log.i(TAG,"点击了第几个Posi"+position);
+                switch (position){
+                    case 0:
+
+
+//                        LayoutInflater li = LayoutInflater.from(getApplicationContext());
+//                        View edit = li.inflate(R.layout.activity_pick_date_time, null);
+//                         final TimePicker timePicker= (TimePicker) edit.findViewById(R.id.pick_time);
+//                         final DatePicker datePicker= (DatePicker) edit.findViewById(R.id.pick_date);
+//                        timePicker.setIs24HourView(true);
+//                        Calendar c = Calendar.getInstance();
+//                        year = c.get(Calendar.YEAR);
+//                        month = c.get(Calendar.MONTH);
+//                        day = c.get(Calendar.DAY_OF_MONTH);
+//                        hour = c.get(Calendar.HOUR);
+//                        minute = c.get(Calendar.MINUTE);
+//                       timePicker.setOnTimeChangedListener(new TimePicker.OnTimeChangedListener() {
+//                           @Override
+//                           public void onTimeChanged(TimePicker view, int hourOfDay, int minute) {
+//                               Log.i(TAG,"hello");
+//                               final int hour = hourOfDay;
+//                               final int minutes = minute;
+//                               Log.i(TAG, "时间是" + hour + "  " + minute);
+//                           }
+//                       });
+//                       datePicker.init(year, month, day, new DatePicker.OnDateChangedListener() {
+//                           @Override
+//                           public void onDateChanged(DatePicker view, int year1, int monthOfYear, int dayOfMonth) {
+//
+//                               year=year1;
+//                               month=monthOfYear;
+//                               day=dayOfMonth;
+//
+//                               Log.i(TAG,year+"   "+month+"    "+day);
+//                           }
+//                       });
+//
+//
+//
+//                      AlertDialog.Builder dialog1 =new AlertDialog.Builder(Edit_Remind.this);
+//                        dialog1.setTitle("选择日期和时间")
+//                                .setView(R.layout.activity_pick_date_time)
+//                                .setNegativeButton("取消",null)
+//                                .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+//
+//
+//                                    @Override
+//                                    public void onClick(DialogInterface dialog, int which) {
+//                                        int i=timePicker.getMinute();
+//                                        Log.i(TAG,i+"");
+//                                    }
+//                                }).create()
+//                                .show();
+//
+
+                        startActivity(new Intent(Edit_Remind.this,Pick_date_time.class));
+
+
+
+
+
+
+                        break;
+
+                    case 1:
+                        AlertDialog.Builder dialog=new AlertDialog.Builder(Edit_Remind.this);
+                        dialog.setTitle("添加子任务").setView(R.layout.edit_reminds_task).setNegativeButton("取消", null)
+                                .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        /**
+                                         *
+                                         */
+                                    }
+                                }).create().show();
+
+
+
+                        break;
+
+                    case 2:
+
+
+                        break;
+
+                    case 3:
+
+
+                        break;
+
+
+
+                }
+
+
+            }
+        });
+
+
+
+    }
+//   final TimePicker timePicker;
+//    DatePicker datePicker;
+    int year,month,day,hour,minute;
+

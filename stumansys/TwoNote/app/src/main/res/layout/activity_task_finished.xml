@@ -1,0 +1,57 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+
+    android:orientation="vertical"
+
+    tools:context="com.example.gongzhiyao.twonote03.Task_finished">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar_task_finished"
+        android:layout_width="match_parent"
+        android:layout_height="46sp"
+        android:background="?attr/colorPrimary"
+        android:minHeight="?attr/actionBarSize"
+
+        android:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+        app:theme="@style/ThemeOverlay.AppCompat.ActionBar">
+
+        <TextView
+            android:id="@+id/title_task_finished"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+
+            android:clickable="true"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:text="已完成的任务"
+            android:textColor="@android:color/white"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+
+    </android.support.v7.widget.Toolbar>
+
+    <SearchView
+
+        android:id="@+id/search_task_finished"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    </SearchView>
+
+    <com.baoyz.swipemenulistview.SwipeMenuListView
+        android:layout_marginLeft="16sp"
+        android:layout_marginRight="16sp"
+        android:id="@+id/lv_task_finished"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    </com.baoyz.swipemenulistview.SwipeMenuListView>
+
+
+
+</LinearLayout>

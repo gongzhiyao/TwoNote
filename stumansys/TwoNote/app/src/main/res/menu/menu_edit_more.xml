@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <!--<item-->
+        <!--android:id="@+id/action_collect"-->
+        <!--android:orderInCategory="3"-->
+        <!--android:title="收藏"-->
+        <!--app:showAsAction="never" />-->
+    <!--<item-->
+        <!--android:id="@+id/action_share"-->
+        <!--android:orderInCategory="4"-->
+        <!--android:title="分享"-->
+        <!--app:showAsAction="never" />-->
+
+    <item
+        android:id="@+id/action_passwd"
+        android:orderInCategory="5"
+        android:title="阅读密码"
+        app:showAsAction="never" />
+
+
+    <item
+        android:id="@+id/action_clear"
+        android:orderInCategory="1"
+        android:title="清空"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_delete"
+        android:orderInCategory="2"
+        android:title="删除"
+        app:showAsAction="never" />
+
+
+</menu>

@@ -1,0 +1,135 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    tools:context="com.example.gongzhiyao.twonote03.setting.Setting_safe">
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar_Setting_safe"
+        android:layout_width="match_parent"
+        android:layout_height="50sp"
+        android:background="?attr/colorPrimary"
+        android:minHeight="?attr/actionBarSize"
+
+        android:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+        app:theme="@style/ThemeOverlay.AppCompat.ActionBar">
+
+        <TextView
+            android:id="@+id/title_Setting_safe"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_gravity="center"
+            android:clickable="true"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:text="隐私与安全"
+            android:textColor="@android:color/white"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
+
+    </android.support.v7.widget.Toolbar>
+
+    <TextView
+        android:background="@color/gray"
+        android:padding="10sp"
+        android:textColor="@color/gray_real"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="录音文件保护"/>
+    <LinearLayout
+        android:orientation="horizontal"
+        android:padding="10sp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+
+            android:textSize="20sp"
+            android:layout_marginLeft="20sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="密码保护"
+            android:textColor="@color/black"
+            />
+        <Switch
+            android:id="@+id/switch_passwd_for_sound"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            />
+    </LinearLayout>
+
+    <ImageView
+        android:layout_marginLeft="20sp"
+        android:layout_width="match_parent"
+        android:layout_height="1sp"
+        android:background="@color/gray"/>
+    <LinearLayout
+        android:orientation="horizontal"
+        android:padding="10sp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+
+            android:textSize="20sp"
+            android:layout_marginLeft="20sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="修改“密码保护”的密码"
+            android:textColor="@color/black"
+            />
+        <Button
+            android:id="@+id/next_passwd_for_sound"
+            android:background="@drawable/next_for_passwd"
+            android:layout_width="40sp"
+            android:layout_height="40sp"
+            />
+
+    </LinearLayout>
+    <ImageView
+        android:layout_marginLeft="20sp"
+        android:layout_width="match_parent"
+        android:layout_height="1sp"
+        android:background="@color/gray"/>
+
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:padding="10sp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+
+            android:textSize="20sp"
+            android:layout_marginLeft="20sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="忘记密码"
+            android:textColor="@color/black"
+            />
+        <Button
+            android:id="@+id/forget_passwd_sound"
+            android:background="@drawable/next_for_passwd"
+            android:layout_width="40sp"
+            android:layout_height="40sp"
+            />
+
+    </LinearLayout>
+
+
+    <TextView
+        android:background="@color/gray"
+        android:padding="10sp"
+        android:textColor="@color/gray_real"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="开启密码保护后，打开录音笔记需要输入密码"/>
+
+
+
+
+</LinearLayout>

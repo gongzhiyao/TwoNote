@@ -1,0 +1,96 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    tools:context="com.example.gongzhiyao.twonote03.Pick_date_time">
+
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar_Settings_date"
+        android:layout_width="match_parent"
+        android:layout_height="40sp"
+        android:background="@color/gray"
+        android:minHeight="?attr/actionBarSize"
+
+        android:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+        app:theme="@style/ThemeOverlay.AppCompat.ActionBar">
+
+        <!--<LinearLayout-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="40sp"-->
+            <!--android:background="@color/gray"-->
+            <!-->-->
+
+
+        <TextView
+            android:layout_marginLeft="16sp"
+            android:focusable="true"
+            android:layout_gravity="center_vertical"
+            android:focusableInTouchMode="true"
+            android:id="@+id/title_my_collection"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="设置日期和时间"
+            android:textColor="@android:color/white"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:clickable="true"/>
+
+        <!--</LinearLayout>-->
+
+
+
+    </android.support.v7.widget.Toolbar>
+
+
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_weight="1"
+    >
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="100dp">
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="日期"
+            android:textSize="20sp"
+
+             />
+
+
+
+
+
+    </LinearLayout>
+
+
+    <Button
+        android:id="@+id/btn_start_set"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="设置"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true" />
+
+
+</RelativeLayout>
+
+
+
+
+
+
+
+</LinearLayout>

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    android:id="@+id/root_view"
+    android:orientation="vertical">
+    <include layout="@layout/custom_toobar"/>
+
+    <com.handmark.pulltorefresh.library.PullToRefreshListView
+        android:id="@+id/lv"
+
+        android:layout_width="match_parent"
+        android:layout_height="fill_parent"
+        android:layout_weight="1">
+
+    </com.handmark.pulltorefresh.library.PullToRefreshListView>
+
+
+    <RelativeLayout
+        android:padding="10sp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+
+
+            <Button
+                android:id="@+id/btn_add"
+                android:layout_width="35sp"
+                android:layout_height="35sp"
+                android:layout_gravity="left"
+                android:background="@drawable/new_1"
+
+                />
+
+
+
+            <!--<Button-->
+                <!--android:layout_width="35sp"-->
+                <!--android:layout_height="35sp"-->
+                <!--android:background="@drawable/tongbu"-->
+                <!--android:layout_alignParentTop="true"-->
+                <!--android:layout_alignParentRight="true"-->
+                <!--android:layout_alignParentEnd="true" />-->
+
+
+
+            <!--<Button-->
+                <!--android:id="@+id/btn_operations"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_gravity="right"-->
+                <!--android:text="更多操作" />-->
+
+
+
+    </RelativeLayout>
+
+
+</LinearLayout>

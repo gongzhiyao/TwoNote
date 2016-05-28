@@ -1,0 +1,132 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:background="@drawable/back_1"
+    tools:context="com.example.gongzhiyao.twonote03.reminds.Reminds_date">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar_reminds"
+        android:layout_width="match_parent"
+        android:layout_height="50sp"
+        android:background="?attr/colorPrimary"
+        android:minHeight="?attr/actionBarSize"
+
+        android:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+        app:theme="@style/ThemeOverlay.AppCompat.ActionBar">
+        <TextView
+            android:id="@+id/tv_reminds"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_gravity="center"
+            android:text="日程清单"
+            android:textColor="@android:color/white"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:clickable="true"
+            />
+
+    </android.support.v7.widget.Toolbar>
+
+
+
+
+
+    <LinearLayout
+        android:alpha="150"
+        android:background="@color/Indigo_colorPrimaryDark"
+        android:layout_margin="12sp"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <Button
+            android:layout_marginLeft="6sp"
+            android:id="@+id/add_reminds"
+            android:layout_width="40sp"
+            android:layout_height="40sp"
+            android:background="@drawable/add_task"/>
+        <EditText
+            android:layout_gravity="center_vertical"
+            android:background="@null"
+
+            android:id="@+id/title_reminds"
+            android:layout_marginLeft="5sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:singleLine="true"
+            android:hint="添加任务..."
+            android:textColorHint="@color/white"
+            android:textColor="@color/white"
+            android:layout_marginRight="5sp"/>
+        <Button
+            android:id="@+id/collect_reminds"
+            android:layout_marginRight="6sp"
+            android:layout_width="30sp"
+            android:layout_height="30sp"
+            android:background="@drawable/remind_collection"/>
+
+
+    </LinearLayout>
+
+    <!--<ListView-->
+        <!--android:layout_margin="12sp"-->
+        <!--android:id="@+id/lv_reminds"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+
+        <!--/>-->
+
+    <com.baoyz.swipemenulistview.SwipeMenuListView
+        android:id="@+id/lv_reminds"
+        android:layout_margin="16sp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+
+
+
+
+
+
+
+    <!--<com.handmark.pulltorefresh.library.PullToRefreshListView-->
+        <!--android:layout_margin="12sp"-->
+        <!--android:id="@+id/lv_reminds"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+
+        <!--/>-->
+    <!--<LinearLayout-->
+
+        <!--android:gravity="center"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content">-->
+
+        <!--<Button-->
+            <!--android:id="@+id/reminds_btn_finish"-->
+            <!--android:layout_width="120sp"-->
+            <!--android:layout_height="36sp"-->
+            <!--android:text="显示已完成的任务"-->
+            <!--android:textSize="12sp"-->
+            <!--android:alpha="150"-->
+            <!--android:textColor="@color/white"-->
+            <!--android:background="@color/Indigo_colorPrimaryDark"/>-->
+    <!--</LinearLayout>-->
+    <!--<com.handmark.pulltorefresh.library.PullToRefreshListView-->
+        <!--android:layout_margin="12sp"-->
+        <!--android:id="@+id/lv_reminds_finished"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+
+        <!--/>-->
+
+
+
+
+</LinearLayout>

@@ -1,0 +1,446 @@
+package com.example.gongzhiyao.twonote03.Recordlist_fragment;
+
+import android.app.Activity;
+import android.content.Context;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import android.media.MediaPlayer;
+import android.net.Uri;
+import android.os.Bundle;
+import android.app.Fragment;
+import android.os.Environment;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.ListView;
+import android.widget.SeekBar;
+import android.widget.SimpleCursorAdapter;
+import android.widget.Spinner;
+import android.widget.TextView;
+
+import com.example.gongzhiyao.twonote03.R;
+import com.example.gongzhiyao.twonote03.database.MyDB;
+
+import org.w3c.dom.Text;
+
+import java.io.File;
+import java.io.IOException;
+import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
+
+/**
+ * A simple {@link Fragment} subclass.
+ * Activities that contain this fragment must implement the
+ * {@link Record_sound_list.OnFragmentInteractionListener} interface
+ * to handle interaction events.
+ * Use the {@link Record_sound_list#newInstance} factory method to
+ * create an instance of this fragment.
+ */
+public class Record_sound_list extends android.support.v4.app.Fragment {
+    // TODO: Rename parameter arguments, choose names that match
+    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
+    private static final String ARG_PARAM1 = "param1";
+    private static final String ARG_PARAM2 = "param2";
+    private static final String TAG = "sound_list";
+
+    // TODO: Rename and change types of parameters
+    private String mParam1;
+    private String mParam2;
+    private Spinner spinner;
+    private EditText et_Record_search;
+    private ListView Record_list;
+    private ArrayAdapter<String> arrayAdapter;
+    private MyDB DB;
+    private SQLiteDatabase dbRead, dbWrite;
+    private Adapter adapter;
+
+    private OnFragmentInteractionListener mListener;
+
+
+    /**
+     * Use this factory method to create a new instance of
+     * this fragment using the provided parameters.
+     *
+     * @param param1 Parameter 1.
+     * @param param2 Parameter 2.
+     * @return A new instance of fragment Record_sound_list.
+     */
+    // TODO: Rename and change types and number of parameters
+    public static Record_sound_list newInstance(String param1, String param2) {
+        Record_sound_list fragment = new Record_sound_list();
+        Bundle args = new Bundle();
+        args.putString(ARG_PARAM1, param1);
+        args.putString(ARG_PARAM2, param2);
+        fragment.setArguments(args);
+        return fragment;
+    }
+
+    public Record_sound_list() {
+        // Required empty public constructor
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if (getArguments() != null) {
+            mParam1 = getArguments().getString(ARG_PARAM1);
+            mParam2 = getArguments().getString(ARG_PARAM2);
+        }
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        View v2 = inflater.inflate(R.layout.fragment_record_sound_list, container, false);
+        spinner = (Spinner) v2.findViewById(R.id.Record_spinner);
+        et_Record_search = (EditText) v2.findViewById(R.id.et_Record_search);
+        Record_list = (ListView) v2.findViewById(R.id.Record_Sound_list);
+        DB = new MyDB(getActivity());
+        dbRead = DB.getReadableDatabase();
+        dbWrite = DB.getWritableDatabase();
+
+        String str[] = new String[]{
+                "所有", "一周前", "一个月前", "三个月前", "更久"
+        };
+        arrayAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, str);
+        arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(arrayAdapter);
+        spinner.setOnItemSelectedListener(spinner_click);
+        Cursor cursor=dbRead.query("media",null,null,null,null,null,null);
+        adapter = new Adapter(getActivity(), R.layout.record_list_cell, cursor, new String[]{"title", "date"}, new int[]{R.id.tv_Record_title, R.id.tv_Record_date});
+        Record_list.setAdapter(adapter);
+        /**
+         * 然后要写的有，给list添加上监听器，还有需要刷新cursor，
+         */
+//        Record_list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//
+//                Button btn_start = (Button) view.findViewById(R.id.btn_Record_start_stop);
+//                Button btn_Release = (Button) view.findViewById(R.id.btn_Record_release);
+//                btn_start.setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View v) {
+//                        Log.i(TAG, "播放按钮被点击");
+//                    }
+//                });
+//                btn_Release.setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View v) {
+//                        Log.i(TAG, "停止按钮被点击");
+//
+//                    }
+//                });
+//
+//            }
+//        });
+
+
+//        refreshList();
+        return v2;
+    }
+
+
+    MediaPlayer player;
+    String musicName;
+    private boolean ifplay = false;
+    Button btn_start;
+    private boolean iffirst = false;
+    SeekBar seekBar;
+    private Timer mTimer;
+    private TimerTask mTimerTask;
+    private boolean isChanging=false;//互斥变量，防止定时器与SeekBar拖动时进度冲突
+    Button btn_Release;
+    File file;
+
+    public class Adapter extends SimpleCursorAdapter {
+        private Cursor c;
+        private Context context;
+        private int layout;
+        private LayoutInflater inflater;
+
+
+        public Adapter(Context context, int layout, Cursor c, String[] from, int[] to) {
+            super(context, layout, c, from, to);
+            this.c = c;
+            this.context = context;
+            this.layout = layout;
+            inflater = LayoutInflater.from(context);
+        }
+
+        @Override
+        public int getCount() {
+
+
+            return c.getCount();
+        }
+
+        @Override
+        public Object getItem(int position) {
+            return position;
+        }
+
+        @Override
+        public long getItemId(int position) {
+            return position;
+        }
+
+
+
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            c.moveToPosition(position);
+            player = new MediaPlayer();
+            LinearLayout Llayout = (LinearLayout) inflater.inflate(layout, null);
+            btn_start = (Button) Llayout.findViewById(R.id.btn_Record_start_stop);
+            btn_Release = (Button) Llayout.findViewById(R.id.btn_Record_release);
+            TextView tv_Record_name = (TextView) Llayout.findViewById(R.id.tv_Record_title);
+            TextView tv_Record_date = (TextView) Llayout.findViewById(R.id.tv_Record_date);
+            seekBar= (SeekBar) Llayout.findViewById(R.id.seekbar);
+            seekBar.setOnSeekBarChangeListener(new MySeekbar());
+
+                String name = c.getString(c.getColumnIndex("title"));
+                String date = c.getString(c.getColumnIndex("date"));
+                musicName=c.getString(c.getColumnIndex("path"));
+
+                tv_Record_date.setText(date);
+                tv_Record_name.setText(name);
+            btn_start.setOnClickListener(clickListener);
+            btn_Release.setOnClickListener(clickListener);
+            file = new File(Environment.getExternalStorageDirectory()+"/TwoNote_Sound",
+                    musicName);
+
+//            btn_start.setOnClickListener(new View.OnClickListener() {
+//
+//                @Override
+//                public void onClick(View v) {//点击后会播放
+//
+//
+//
+//
+//
+//                }
+//            });
+//
+//            btn_Release.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    System.out.println("停止");
+//
+//
+//
+//
+//                }
+//            });
+
+
+            return Llayout;
+        }
+    }
+
+
+
+    private View.OnClickListener clickListener=new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+
+
+                // 判断有没有要播放的文件
+                if (file.exists()) {
+                    switch (v.getId()) {
+                        case R.id.btn_Record_start_stop:
+
+                            try {
+                                player.setDataSource(file.getPath());
+                                player.prepare();// 准备
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                            if (player != null && !player.isPlaying()) {
+                                btn_start.setText("暂停");
+                                Log.i(TAG, "此时正在播放");
+                                seekBar.setMax(player.getDuration());//设置进度条
+                                //----------定时器记录播放进度---------//
+                                mTimer = new Timer();
+                                mTimerTask = new TimerTask() {
+                                    @Override
+                                    public void run() {
+                                        if (isChanging == true) {
+                                            return;
+                                        }
+                                        seekBar.setProgress(player.getCurrentPosition());
+                                    }
+                                };
+                                mTimer.schedule(mTimerTask, 0, 10);
+                            }
+                            else if(player.isPlaying()){
+                                player.pause();
+//                                if (!iffirst) {
+//                                    player.reset();
+//                                    try {
+//                                        player.setDataSource(file.getAbsolutePath());
+//                                        player.prepare();// 准备
+//
+//                                    } catch (IllegalArgumentException e) {
+//                                        e.printStackTrace();
+//                                    } catch (IllegalStateException e) {
+//                                        e.printStackTrace();
+//                                    } catch (IOException e) {
+//                                        e.printStackTrace();
+//                                    }
+//                                    seekBar.setMax(player.getDuration());//设置进度条
+//                                    //----------定时器记录播放进度---------//
+//                                    mTimer = new Timer();
+//                                    mTimerTask = new TimerTask() {
+//                                        @Override
+//                                        public void run() {
+//                                            if(isChanging==true) {
+//                                                return;
+//                                            }
+//                                            seekBar.setProgress(player.getCurrentPosition());
+//                                        }
+//                                    };
+//                                    mTimer.schedule(mTimerTask, 0, 10);
+//                                    iffirst=true;
+//                                }
+//                                player.start();// 开始
+//                                ifplay = true;
+//                            } else if (ifplay) {
+//                                btn_start.setText("播放");
+//                                player.pause();
+//                                ifplay = false;
+                            }
+                            break;
+                        case R.id.btn_Record_release:
+                            if (player.isPlaying()) {
+//                                player.seekTo(0);
+//                            } else {
+                                player.reset();
+                                try {
+                                    player.setDataSource(file.getAbsolutePath());
+                                    player.prepare();// 准备
+                                    player.start();// 开始
+                                } catch (IllegalArgumentException e) {
+                                    e.printStackTrace();
+                                } catch (IllegalStateException e) {
+                                    e.printStackTrace();
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                            break;
+                    }
+                }
+
+
+
+
+            }
+
+    };
+    class MySeekbar implements SeekBar.OnSeekBarChangeListener {
+        public void onProgressChanged(SeekBar seekBar, int progress,
+                                      boolean fromUser) {
+        }
+
+        public void onStartTrackingTouch(SeekBar seekBar) {
+            isChanging=true;
+        }
+
+        public void onStopTrackingTouch(SeekBar seekBar) {
+            player.seekTo(seekBar.getProgress());
+            isChanging=false;
+        }
+
+    }
+
+
+    private void refreshList() {
+        try {
+//            Cursor c = dbRead.query("media", null, null, null, null, null, null);
+//            adapter.changeCursor(c);
+
+            Cursor cursor=dbRead.query("media",null,null,null,null,null,null);
+            adapter = new Adapter(getActivity(), R.layout.record_list_cell, cursor, new String[]{"title", "date"}, new int[]{R.id.tv_Record_title, R.id.tv_Record_date});
+            Record_list.setAdapter(adapter);
+        } catch (Exception e) {
+            Log.i(TAG, "发生了异常");
+        }
+    }
+
+    private AdapterView.OnItemSelectedListener spinner_click = new AdapterView.OnItemSelectedListener() {
+        @Override
+        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+            /**
+             * 这里是spinner的监听器
+             */
+
+            //这里同样也要关联listView
+
+            switch (position) {
+                case 0:
+                    Log.i(TAG, "这是全部");
+                    refreshList();
+                    break;
+                case 1:
+                    Log.i(TAG, "点击了第二项");
+                    break;
+            }
+        }
+
+        @Override
+        public void onNothingSelected(AdapterView<?> parent) {
+//            refreshList();
+        }
+    };
+
+
+    // TODO: Rename method, update argument and hook method into UI event
+    public void onButtonPressed(Uri uri) {
+        if (mListener != null) {
+            mListener.onFragmentInteraction(uri);
+        }
+    }
+
+//    @Override
+//    public void onAttach(Activity activity) {
+//        super.onAttach(activity);
+//        try {
+//            mListener = (OnFragmentInteractionListener) activity;
+//        } catch (ClassCastException e) {
+//            throw new ClassCastException(activity.toString()
+//                    + " must implement OnFragmentInteractionListener");
+//        }
+//    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        mListener = null;
+    }
+
+    /**
+     * This interface must be implemented by activities that contain this
+     * fragment to allow an interaction in this fragment to be communicated
+     * to the activity and potentially other fragments contained in that
+     * activity.
+     * <p>
+     * See the Android Training lesson <a href=
+     * "http://developer.android.com/training/basics/fragments/communicating.html"
+     * >Communicating with Other Fragments</a> for more information.
+     */
+    public interface OnFragmentInteractionListener {
+        // TODO: Update argument type and name
+        public void onFragmentInteraction(Uri uri);
+    }
+
+}

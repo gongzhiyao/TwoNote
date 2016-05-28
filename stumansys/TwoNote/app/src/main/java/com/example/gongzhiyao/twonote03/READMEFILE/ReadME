@@ -1,0 +1,191 @@
+暂时把这个用viewpager写的录音界面放弃，沿用过去的Activity
+
+
+但是通过权限问题解决了
+
+
+之前写的权限不对，写成了ANDROID.~   而不是android.~
+
+
+在写入数据库时，实现了把soundList中的数据写入到数据库，并且每次只写入列表的最后一个，无论列表是否被重新初始化，这应该算是一个优点吧
+
+突然想把播放写成一个进度条，而不是每个Item上都有，接下来会做个大改变，取消baseAdapter，直接使用CursorAdapter
+
+先把代码保存一下
+
+
+今天写了spinner的监听器，明天会写搜索的监听器，还会添加一个通知
+
+搜索的监听器在这
+ private View.OnKeyListener onKeyListener = new View.OnKeyListener() {
+
+        @Override
+        public boolean onKey(View v, int keyCode, KeyEvent event) {
+            if(keyCode == KeyEvent.KEYCODE_ENTER && event.getAction() == KeyEvent.ACTION_DOWN){
+                /*隐藏软键盘*/
+                InputMethodManager inputMethodManager = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                if(inputMethodManager.isActive()){
+                    inputMethodManager.hideSoftInputFromWindow(v.getApplicationWindowToken(), 0);
+                }
+
+                Log.i(TAG,"搜索按键被点击");
+                String s=et_Record_search.getText().toString();
+
+                String sq = "select * from media where date like? or title like?";
+                Cursor c = dbRead.rawQuery(sq, new String[]{"%" +s+ "%","%" +s+ "%"});
+                adapter.changeCursor(c);
+
+                return true;
+            }
+            return false;
+        }
+    };
+
+
+
+不知怎么的，setLatestEventInfo过时了
+
+
+ public void showNotification(String tickerText, String contentTitle,
+//                                 String contentText, int iconId, int notiId) {
+//        NotificationManager manager= (NotificationManager) getSystemService(this.NOTIFICATION_SERVICE);
+//
+//        // 创建一个Notification
+//        Notification notification = new Notification();
+//        // 设置通知 消息 图标
+//        notification.icon = iconId;
+//        // 设置发出消息的内容
+//        notification.tickerText = tickerText;
+//        // 设置发出通知的时间
+//        notification.when = System.currentTimeMillis();
+//
+//        // 设置显示通知时的默认的发声、振动、Light效果
+//        notification.defaults = Notification.DEFAULT_VIBRATE;// 振动
+//
+//        // Notification notification = new Notification(R.drawable.ic_launcher,"有新的消息", System.currentTimeMillis());
+//
+//        // 3步：PendingIntent android系统负责维护
+//        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, getIntent(), 0);
+//        // 4步：设置更加详细的信息
+//        notification.setLatestEventInfo(this, contentTitle, contentText,pendingIntent);
+//
+//        // 5步：使用notificationManager对象的notify方法 显示Notification消息 需要制定
+//        // Notification的标识
+//        manager.notify(notiId, notification);
+//
+//    }
+
+最终，成功的写入了notification，但是点击返回的话，会发现原来的录音取消了，必须写在服务里，才可以，
+但是由于考虑到录音的适用范围和录音代码工程量，暂时不会把录音项目更改为服务
+
+但同时，又有了一个想法就是在每天的一定时间里进行提醒，写日记的操作
+
+
+
+最终解决了推送消息的问题，在这里使用的是，在Mianactivity的start方法中，开启一个服务，而这个服务的start方法中，动态注册
+了一个广播接收器，用于接收系统广播Intent.ACTION_TIME_TICK，这个广播每分钟发送一次，在receiver的onreceive中确定，接到的广播是这一个
+然后获取当地时间，把时间与预设时间进行对比，一旦符合，就会在开启一个临时服务，在服务中，发出通知，完成推送
+
+现在面临一个问题就是加载图片时listview卡顿，原因已经知道了，就是getview中的操作太过于复杂
+正在想办法解决
+
+由于最终写的baseadapter有很多bug，其中包括刷新listview排序错误等问题，现在暂时更改为simplecursoradapter
+
+一旦改为了simplecursorAdapter以后，就不用考虑缩略图的问题，包括缩略图的清晰度（由于缩略图bitmap与imageview大小不一，会导致缩略图模糊），
+还有一个问题是卡顿问题，在getview中进行的操作太多，导致每次滑动都会有一定程度的卡顿，
+
+现在要实现editText中图片的点击功能。
+那个在图库中选取照片后，删除图库中的照片，日志崩溃的bug已经修复
+（修复方法，是在选取了图库照片后，获得uri然后进而获得bitmap，再然后将bitmap输出到指定的路径位置，然后获取指定位置的文件
+从而得到uri，这样就把系统图库的图片进行了复制，并且把uri转换为复制的图片的uri）
+
+
+
+/***有一点非常重要的，就是增加Edittext中图片的点击功能***/
+
+现在还没有做到
+
+今天先来写editText里面的按钮，图片点击得等一等
+
+最终发现收藏不适合在编辑界面中写，在保存以后再写比较合适
+
+
+在数据库中多了is_collect，用来判别收藏是否成功。
+
+现在再写的是密码的设置和取消，这里需要考虑的有
+
+查看时，是否需要密码
+删除时，是否需要密码
+
+
+还有一个关于删除的问题，删除时除了删除数据库还要把内部文件删除->解决
+
+
+但是有一个问题就是在Editlog里面删除时，是否可以添加对话框
+(问题解决了，是getApllicationContext的原因，应该直接写Edit_Text.this就可以了)
+
+
+密码的问题已经解决，现在有两个选择，一个是集成一个分享的sdk另一个是编写其他的界面（比如收藏还是日程提醒等等）
+
+夜间模式先写不了，还得需要调整/*****************************************/
+
+
+
+最近在疯狂讲义上看到了 searchView，然后把录音的Edittext的搜索框更改成了searchview
+
+
+
+*********************************************
+这是一个重大的进步：
+本来想通过异步加载来优化带imageview的listview的滑动
+后来发现了一个afinal框架，可以很好的加载网络图片和本地图片，而且不用考虑性能和oom问题
+
+2016-5-11
+今天遇到一个问题就是自定义的adapter再刷新时会出现顺序错乱的现象，后来发现是因为getview的写法不对
+在convertview==null中只需要进行布局文件的加载即可，其他的写在外面
+例：
+ @Override
+    public View getView(int position, View listlayout, ViewGroup parent) {
+        Log.i(TAG,"getview被执行，position是"+position);
+        cursor.moveToPosition(position);
+
+
+        if (listlayout == null) {
+
+            listlayout = inflater.inflate(layout_num, null);
+//             tv_title= (ScrollForeverTextView) listlayout.findViewById(R.id.tv_title);
+
+            listlayout.setTag(iv);
+
+
+        }else {
+            iv= (ImageView) listlayout.getTag();
+
+        }
+        tv_title = (TextView) listlayout.findViewById(R.id.tv_title);
+        tv_content = (TextView) listlayout.findViewById(R.id.tv_content);
+        tv_date = (TextView) listlayout.findViewById(R.id.tv_date);
+        iv = (ImageView) listlayout.findViewById(R.id.iv_show);
+        String title = cursor.getString(cursor.getColumnIndex("name"));
+        String summary = cursor.getString(cursor.getColumnIndex("summary"));
+        String date = cursor.getString(cursor.getColumnIndex("date"));
+        String uri = cursor.getString(cursor.getColumnIndex("image"));
+
+        Log.i(TAG,"title:"+title);
+        tv_title.setText(title);
+
+        tv_content.setText(summary);
+        tv_date.setText(date);
+        fb.display(iv, uri);
+        //notifyDataSetChanged();
+
+
+
+
+
+        return listlayout;
+    }
+
+
+    (●'◡'●)
+

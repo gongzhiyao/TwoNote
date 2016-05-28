@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:padding="10sp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <ImageView
+        android:id="@+id/iv_edit_reminds"
+        android:layout_width="45sp"
+        android:layout_height="45sp" />
+    <TextView
+        android:singleLine="true"
+        android:textSize="16sp"
+        android:layout_gravity="center_vertical"
+        android:layout_marginLeft="20sp"
+        android:id="@+id/tv_edit_reminds"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_weight="1"/>
+
+
+</LinearLayout>

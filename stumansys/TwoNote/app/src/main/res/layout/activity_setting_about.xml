@@ -1,0 +1,95 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    tools:context="com.example.gongzhiyao.twonote03.setting.Setting_about">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar_Setting_about"
+        android:layout_width="match_parent"
+        android:layout_height="50sp"
+        android:background="?attr/colorPrimary"
+        android:minHeight="?attr/actionBarSize"
+
+        android:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+        app:theme="@style/ThemeOverlay.AppCompat.ActionBar">
+
+        <TextView
+            android:id="@+id/title_Setting_about"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_gravity="center"
+            android:clickable="true"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:text="关于TwoNote"
+            android:textColor="@android:color/white"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
+
+    </android.support.v7.widget.Toolbar>
+    <LinearLayout
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="150sp">
+
+        <TextView
+            android:shadowColor="@color/gray"
+            android:shadowDx="10"
+            android:shadowDy="10"
+            android:shadowRadius="4"
+            android:textColor="@color/Indigo_colorPrimary"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="TwoNote"
+            android:textSize="32sp"/>
+
+        <!--<ImageView-->
+            <!--android:background="@color/gray"-->
+            <!--android:layout_gravity="center"-->
+            <!--android:layout_width="100sp"-->
+            <!--android:layout_height="100sp" />-->
+    </LinearLayout>
+
+    <TextView
+        android:layout_gravity="center_horizontal"
+        android:textSize="16sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="当前版本号:1.0.0"/>
+
+    <LinearLayout
+        android:layout_weight="1"
+        android:layout_gravity="bottom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        >
+
+    </LinearLayout>
+
+    <TextView
+
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:autoLink="all"
+        android:textSize="16sp"
+        android:text="技术支持电话：15663675309"/>
+    <TextView
+        android:layout_marginTop="6sp"
+        android:layout_marginBottom="6sp"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="版权由 gzyao 所有"/>
+
+
+
+
+</LinearLayout>

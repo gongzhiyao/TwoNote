@@ -1,0 +1,220 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.example.gongzhiyao.twonote03.setting.Settings">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar_Settings"
+        android:layout_width="match_parent"
+        android:layout_height="200sp"
+        android:background="?attr/colorPrimary"
+        android:minHeight="?attr/actionBarSize"
+        android:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+        app:theme="@style/ThemeOverlay.AppCompat.ActionBar">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="40sp"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <Button
+
+                android:id="@+id/btn_icon"
+                android:layout_width="86sp"
+                android:layout_height="86sp"
+                android:layout_marginTop="20sp"
+                 />
+            <!--android:background="@drawable/icon_btn"-->
+            <!--<ImageView-->
+                <!--android:clickable="true"-->
+                <!--android:layout_width="86sp"-->
+                <!--android:layout_height="86sp"-->
+                <!--android:id="@+id/iv"/>-->
+            <TextView
+                android:singleLine="true"
+                android:id="@+id/tv_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10sp"
+                android:text="hello"
+                android:textColor="@color/white"
+                android:textSize="26sp" />
+
+
+        </LinearLayout>
+
+        <!--android:layout_centerInParent="true"-->
+        <!--android:layout_gravity="center"-->
+
+    </android.support.v7.widget.Toolbar>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16sp"
+        android:layout_marginTop="20sp"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="40sp"
+            android:layout_height="40sp"
+            android:layout_marginLeft="5sp"
+            android:src="@drawable/man" />
+
+        <Button
+            android:id="@+id/setting_info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16sp"
+            android:layout_weight="1"
+            android:background="@null"
+            android:gravity="left|center_vertical"
+            android:text="账户信息"
+            android:textColor="@color/gray_real" />
+
+
+    </LinearLayout>
+    <ImageView
+        android:layout_marginLeft="20sp"
+        android:layout_width="match_parent"
+        android:layout_height="1sp"
+        android:background="@color/gray"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16sp"
+        android:layout_marginTop="20sp"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="40sp"
+            android:layout_height="40sp"
+            android:layout_marginLeft="5sp"
+            android:src="@drawable/safe" />
+
+        <Button
+            android:id="@+id/setting_safe"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16sp"
+            android:layout_weight="1"
+            android:background="@null"
+            android:gravity="left|center_vertical"
+            android:text="隐私与安全"
+            android:textColor="@color/gray_real" />
+
+
+    </LinearLayout>
+    <ImageView
+        android:layout_marginLeft="20sp"
+        android:layout_width="match_parent"
+        android:layout_height="1sp"
+        android:background="@color/gray"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16sp"
+        android:layout_marginTop="20sp"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="40sp"
+            android:layout_height="40sp"
+            android:layout_marginLeft="5sp"
+            android:src="@drawable/setting_help" />
+
+        <Button
+            android:id="@+id/setting_help"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16sp"
+            android:layout_weight="1"
+            android:background="@null"
+            android:gravity="left|center_vertical"
+            android:text="帮助"
+            android:textColor="@color/gray_real" />
+
+
+    </LinearLayout>
+    <ImageView
+        android:layout_marginLeft="20sp"
+        android:layout_width="match_parent"
+        android:layout_height="1sp"
+        android:background="@color/gray"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16sp"
+        android:layout_marginTop="20sp"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="40sp"
+            android:layout_height="40sp"
+            android:layout_marginLeft="5sp"
+            android:src="@drawable/back" />
+
+        <Button
+            android:id="@+id/setting_feedBack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16sp"
+            android:layout_weight="1"
+            android:background="@null"
+            android:gravity="left|center_vertical"
+            android:text="意见反馈"
+            android:textColor="@color/gray_real" />
+
+
+    </LinearLayout>
+    <ImageView
+        android:layout_marginLeft="20sp"
+        android:layout_width="match_parent"
+        android:layout_height="1sp"
+        android:background="@color/gray"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16sp"
+        android:layout_marginTop="20sp"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="40sp"
+            android:layout_height="40sp"
+            android:layout_marginLeft="5sp"
+            android:src="@drawable/about" />
+
+        <Button
+            android:id="@+id/setting_about"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16sp"
+            android:layout_weight="1"
+            android:background="@null"
+            android:gravity="left|center_vertical"
+            android:text="关于"
+            android:textColor="@color/gray_real" />
+
+
+    </LinearLayout>
+    <ImageView
+        android:layout_marginLeft="20sp"
+        android:layout_width="match_parent"
+        android:layout_height="1sp"
+        android:background="@color/gray"/>
+
+
+
+</LinearLayout>
